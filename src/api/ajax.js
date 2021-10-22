@@ -7,7 +7,6 @@ export default function ajax(url,data={},type='GET'){
         // 同步代码
         let promise
         const instance1=axios.create({
-            baseURL:'http://localhost:4000',
             timeout:3000
         })
         if(type=='GET'){
@@ -15,9 +14,7 @@ export default function ajax(url,data={},type='GET'){
                 params:data
             })
         }else if(type=='POST'){
-            promise=instance1.post(url,{
-                data
-            })
+            promise=instance1.post(url,data)
         }
         // axios发出去的结果
         promise.then(value=>{
@@ -36,4 +33,14 @@ export default function ajax(url,data={},type='GET'){
 // },err=>{
 //     console.log(err)
 // })
+
+// var testajax=axios.get('http://localhost:4000/index_category').then(value=>{
+//     console.log(value.data)
+// },err=>{
+//     console.log(err.toJSON())
+// })
+// var testajax=ajax('/index_category')
+
+// var P = Promise.resolve('123')
+// console.log(P)
 

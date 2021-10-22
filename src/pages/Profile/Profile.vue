@@ -5,11 +5,25 @@
 
         </HeaderTop>
         <section class="profile-number">
-            <!-- <router-link to="/login" class="profile-link">
+            <router-link :to="userinfo._id? '/userinfo' : '/login'" class="profile-link">
+                <div class="profile_image">
+                <i class="iconfont icon-person"></i>
+                </div>
+                <div class="user-info">
+                <p class="user-info-top">{{userinfo._id || '登录/注册'}}</p>
+                <p>
+                    <span class="user-icon">
+                    <i class="iconfont icon-shouji icon-mobile"></i>
+                    </span>
+                    <span class="icon-mobile-number">{{userinfo.phone || '暂无绑定手机号'}}</span>
+                </p>
+                </div>
+                <span class="arrow">
+                <i class="iconfont icon-jiantou1"></i>
+                </span>
+            </router-link>
 
-            </router-link> -->
-
-            <a href="#/login" class="profile-link">
+            <!-- <a href="#/login" class="profile-link">
                 <div class="profile_image">
                 <i class="iconfont icon-person"></i>
                 </div>
@@ -25,7 +39,7 @@
                 <span class="arrow">
                 <i class="iconfont icon-jiantou1"></i>
                 </span>
-            </a>
+            </a> -->
         </section>
         <section class="profile_info_data border-1px">
           <ul class="info_data_list">
@@ -95,18 +109,31 @@
             </div>
           </a>
         </section>
+        <section class="profile_logout border-1px" v-if="userinfo._id">
+          <mt-button class="logout" type="danger" @click="logout">退出登录</mt-button>
+        </section>
       </section>
     </div>
 </template>
 
 <script>
+import {mapState} from 'vuex';
+import {MessageBox} from 'mint-ui'
 import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
 export default {
     name:'Profile',
-    data(){
-        return {
-            
-        }
+    methods:{
+      logout(){
+        MessageBox.confirm('确定要退出吗').then(action=>{
+          // 删除用户信息
+          this.$store.dispatch('logout')
+          // 更新界面
+          this.$router.replace(`/profile`)
+        })
+      }
+    },
+    computed:{
+      ...mapState(['userinfo'])
     },
     components:{
         HeaderTop
@@ -115,7 +142,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import "../../common/css/mixins.styl"
+@import "../../common/stylus/mixins.styl"
 .profile //我的
   width 100%
   overflow hidden
@@ -247,5 +274,12 @@ export default {
           .icon-jiantou1
             color #bbb
             font-size 10px
-
+.profile_logout
+  top-border-1px(#e4e4e4)
+  margin-top 10px
+  background #fff
+  display flex
+  justify-content center
+  .logout
+    width 70%
 </style>

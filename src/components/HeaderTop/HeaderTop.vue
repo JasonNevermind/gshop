@@ -11,13 +11,16 @@
 </template>
 
 <script>
+
 export default {
   name: "HeaderTop",
-  props:['title']
+  props:['title'],
+
 };
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
+@import "../../common/stylus/mixins.styl"
 .header //头部公共css
   background-color #02a774
   position fixed
@@ -41,10 +44,13 @@ export default {
     top 50%
     left 50%
     transform translate(-50%, -50%)
-    width 30%
+    width 50%
     color #fff
-    font-size 22px
+    font-size 1rem
     text-align center
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   .header_login
     font-size 14px
     color #fff

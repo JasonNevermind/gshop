@@ -7,6 +7,10 @@ const Order = ()=> import ('../pages/Order/Order')
 const Profile = ()=> import ('../pages/Profile/Profile')
 const Search = ()=> import ('../pages/Search/Search')
 const Login = ()=> import ('../pages/Login/Login')
+const Shop = ()=> import ('../pages/Shop/Shop.vue')
+const ShopGoods = ()=> import ('../pages/Shop/ShopGoods/ShopGoods.vue')
+const ShopRating = ()=> import ('../pages/Shop/ShopRating/ShopRating.vue')
+const ShopInfo = ()=> import ('../pages/Shop/ShopInfo/ShopInfo.vue')
 
 Vue.use(Router)
 
@@ -40,6 +44,16 @@ export default new Router({
     {
       path: '/login',
       component: Login
+    },
+    {
+      path: '/shop',
+      component: Shop,
+      children:[
+        {path:'/shop/goods',component:ShopGoods},
+        {path:'/shop/rating',component:ShopRating},
+        {path:'/shop/info',component:ShopInfo},
+        {path:'',component:ShopGoods,redirect:'/shop/goods'}
+      ]
     }
   ]
 })
